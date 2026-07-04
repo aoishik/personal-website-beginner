@@ -29,4 +29,4 @@ jobs:
           git commit -m "Strip Repo A CNAME for Repo B sync" || true
 
           # 4. Push directly to Repo B using the token for authentication
-          git push -f https://x-access-token:${{ secrets.SYNC_PAT }}@://github.com main
+          git push -f https://x-access-token:${{ secrets.SYNC_PAT }}@://github.com/aoishik/aoishik.github.io main
