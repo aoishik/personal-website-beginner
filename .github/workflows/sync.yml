@@ -14,23 +14,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Adjust CNAME for Repo B
+      - name: Push to Repo B cleanly
         run: |
+          # 1. Set Git Identity and fix ownership warning
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@://github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory /github/workspace
           
-          # Delete Repo A's custom domain CNAME file in the runner workspace
+          # 2. Delete Repo A's custom domain CNAME file in the runner workspace
           rm -f CNAME
           
-          # Local commit so git-sync sees the removal
+          # 3. Local commit so Git logs the removal
           git add CNAME || true
           git commit -m "Strip Repo A CNAME for Repo B sync" || true
 
-      - name: Push to Repo B
-        uses: wei/git-sync@v3
-        with:
-          source_repo: "://github.com{{ github.repository }}"
-          source_branch: "main" # Change to 'master' if your default branch is master
-          destination_repo: "://github.com/aoishik/aoishik.github.io"
-          destination_branch: "main" # Change to 'master' if your default branch is master
-          destination_token: ${{ secrets.SYNC_PAT }}
+          # 4. Push directly to Repo B using the token for authentication
+          git push -f https://x-access-token:${{ secrets.SYNC_PAT }}@://github.com main
