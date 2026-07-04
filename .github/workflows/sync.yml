@@ -23,8 +23,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Remove CNAME
-        run: rm -f CNAME
+      - name: Prepare files
+        run: |
+          rm -f CNAME
+          rm -rf .github
 
       - name: Commit changes
         run: |
