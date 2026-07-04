@@ -15,24 +15,26 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Remove Source Custom Domain
-        run: |
-          rm -f CNAME
+      - name: Remove CNAME
+        run: rm -f CNAME
 
-      - name: Push to Destination Repository
+      - name: Commit changes
         run: |
-          git init
           git add -A
-          git commit -m "Mirror website" || true
+          git commit -m "Mirror website (without CNAME)" || true
 
-          git branch -M main
-
-          git remote add destination https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/aoishik/aoishik.github.io.git
-
-          git push --force destination main
+      - name: Push to GitHub Pages repository
+        env:
+          PAT: ${{ secrets.SYNC_PAT }}
+        run: |
+          git remote remove destination 2>/dev/null || true
+          git remote add destination https://x-access-token:${PAT}@github.com/aoishik/aoishik.github.io.git
+          git push --force destination HEAD:main
