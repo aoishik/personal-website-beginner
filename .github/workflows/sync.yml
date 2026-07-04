@@ -1,32 +1,38 @@
-name: Sync to Repo B without CNAME
+name: Mirror Website to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Change to 'master' if your default branch is master
+      - main
+  workflow_dispatch:
 
 jobs:
-  git-sync:
+  mirror:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo A
+      - name: Checkout Source Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Push to Repo B cleanly
+      - name: Configure Git
         run: |
-          # 1. Set Git Identity and fix ownership warning
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory /github/workspace
-          
-          # 2. Delete Repo A's custom domain CNAME file in the runner workspace
-          rm -f CNAME
-          
-          # 3. Local commit so Git logs the removal
-          git add CNAME || true
-          git commit -m "Strip Repo A CNAME for Repo B sync" || true
 
-          # 4. Push directly to Repo B using the token for authentication
-          git push -f https://x-access-token:${{ secrets.SYNC_PAT }}@://github.com/aoishik/aoishik.github.io main
+      - name: Remove Source Custom Domain
+        run: |
+          rm -f CNAME
+
+      - name: Push to Destination Repository
+        run: |
+          git init
+          git add -A
+          git commit -m "Mirror website" || true
+
+          git branch -M main
+
+          git remote add destination https://x-access-token:${{ secrets.SYNC_PAT }}@github.com/aoishik/aoishik.github.io.git
+
+          git push --force destination main
