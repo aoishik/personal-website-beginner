@@ -10,11 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.7.1/core.js"></script>
 </head>
 <body>
+    <py-config src="./pyscript.toml"></py-config>
     <header>
         <div class="header-content">
-            <a href="index.html">
+            <a href="surprise.html">
                 <img src="/AOISHIK.svg" alt="Aoishik's Logo" class="logo">
             </a>
             <nav>
@@ -28,7 +31,34 @@
             </nav>
         </div>
     </header>
+    <main class="surprise-workspace">
+        <div class="surprise-box">
+            <button id="surprise-button" py-click="surprise_function" disabled style="opacity: 0.6; cursor:wait;">Click me for a surprise!</button>
+        </div>
+    </main>
+    <script type="py">
+from js import document as js_document
+# from pyscript import document
 
+def surprise_function(event):
+    #Play a youtube video replacing the button automatically with the video
+    container = js_document.querySelector(".surprise-box")
+    try:
+        container.requestFullscreen()
+    except Exception as e:
+        print(f"Error requesting fullscreen: {e}")
+    youtube_iframe = f"""
+<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    """
+    container.innerHTML = youtube_iframe
+# --- THIS CODE RUNS AUTOMATICALLY ONCE PYSCRIPT IS READY ---
+btn = js_document.querySelector("#surprise-button")
+if btn:
+    btn.removeAttribute("disabled")
+    btn.innerText = "Click me for a surprise!"
+    btn.style.opacity = "1"
+    btn.style.cursor = "pointer"
+    </script>
     <footer>
         <div class="footer-content">
             <a href="https://github.com/aoishik" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
