@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aoishik's Projects</title>
+    <title>Aoishik's Website</title>
     <link rel="icon" type="image/svg+xml" href="/AOISHIK.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,12 @@
                 <img src="/AOISHIK.svg" alt="Aoishik's Logo" class="logo">
             </a>
             <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                <label for="menu-toggle" class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="projects.html">Projects</a></li>
@@ -28,6 +34,55 @@
             </nav>
         </div>
     </header>
+
+    <main id="projects">
+        <h1>Projects</h1>
+        <section class="project">
+            <div class="project-text">
+                <h2>This Website</h2>
+                <p>The website you are currently viewing is my personal portfolio website built with HTML, CSS and not JavaScript but Pyscript(Python in the browser).
+                    This website has the following features:
+                    <ul>
+                        <li>Support for mobile devices</li>
+                        <li>404 Page</li>
+                        <li>Many Others. Discover it yourself. :)</li>
+                    </ul>
+                </p>
+            <a href="https://github.com/aoishik/personal-website-beginner" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon-project" aria-hidden="true">
+            </a>
+            </div>
+        </section>
+        <section class="project">
+            <div class="project-text">
+                <h2>Aoishik's Hackpad</h2>
+                <p>My first hardware project! Aoishik's Hackpad is a 6-key macropad designed for coding and music control and a sleek glow in the dark 3D-printed case.</p>
+            <a href="https://github.com/aoishik/Aoishik-s-Hackpad" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon-project" aria-hidden="true">
+            </a>
+            </div>
+        </section>
+        <section class="project">
+            <div class="project-text">
+                <h2>Advanced Human Detector</h2>
+                <p>A human detection system which uses HmmD Mmwave Sensor to detect human presence and trigger the alarm system.</p>
+            <a href="https://github.com/aoishik/Advanced_Human_Detector" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon-project" aria-hidden="true">
+            </a>
+            </div>
+        </section>
+        <section class="project">
+            <div class="project-text">
+                <h2>AOILED</h2>
+                <p>AOILED is a smart LED lighting system that allows users to control the brightness and color of their lights remotely. It also has a microphone for audio reactive lighting.
+                    It is mainly for 12v led strips and can be controlled via a web interface or the WLED mobile app. It is built using ESP32 and WLED firmware.
+                </p>
+            <a href="https://github.com/aoishik/AOILED" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon-project" aria-hidden="true">
+            </a>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-content">
